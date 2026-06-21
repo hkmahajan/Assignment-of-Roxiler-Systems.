@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  address   String?
+  role      String   @default("USER") // ADMIN, USER, STORE_OWNER
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  store   Store?
+  ratings Rating[]
+}
+
+model Store {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  address       String
+  averageRating Float    @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  owner   User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int      @unique
+  ratings Rating[]
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  score     Int      // 1–5
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId Int
+
+  @@unique([userId, storeId]) // one rating per user per store
+}
