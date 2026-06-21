@@ -3,7 +3,7 @@ const router = express.Router();
 const RatingController = require('../controllers/rating.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 const roleMiddleware = require('../middleware/role.middleware');
-const { ratingRules, validate } = require('../utils/validator');
+const { ratingRules, validate } = require('../validators');
 
 
 router.post('/', authMiddleware, roleMiddleware('USER'), ratingRules, validate, RatingController.rateStore);

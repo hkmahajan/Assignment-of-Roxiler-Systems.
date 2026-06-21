@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const UserModel = require('../models/User');
-const { generateToken } = require('../utils/jwt');
+const UserModel = require('../repositories/user.repository');
+const { generateToken } = require('../services/jwt.service');
 
 const AuthService = {
     register: async ({ name, email, password, address, role }) => {

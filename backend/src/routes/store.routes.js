@@ -3,7 +3,7 @@ const router = express.Router();
 const StoreController = require('../controllers/store.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 const roleMiddleware = require('../middleware/role.middleware');
-const { storeRules, validate } = require('../utils/validator');
+const { storeRules, validate } = require('../validators');
 
 
 router.get('/', authMiddleware, StoreController.getAllStores);

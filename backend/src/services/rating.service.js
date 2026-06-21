@@ -1,5 +1,5 @@
-const RatingModel = require('../models/Rating');
-const StoreModel = require('../models/Store');
+const RatingModel = require('../repositories/rating.repository');
+const StoreModel = require('../repositories/store.repository');
 
 const RatingService = {
     rateStore: async ({ userId, storeId, score }) => {

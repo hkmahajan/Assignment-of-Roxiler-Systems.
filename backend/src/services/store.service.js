@@ -1,5 +1,5 @@
-const StoreModel = require('../models/Store');
-const RatingModel = require('../models/Rating');
+const StoreModel = require('../repositories/store.repository');
+const RatingModel = require('../repositories/rating.repository');
 const prisma = require('../config/db');
 
 const StoreService = {

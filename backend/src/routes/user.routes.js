@@ -3,7 +3,7 @@ const router = express.Router();
 const UserController = require('../controllers/user.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 const roleMiddleware = require('../middleware/role.middleware');
-const { registerRules, validate } = require('../utils/validator');
+const { registerRules, validate } = require('../validators');
 
 
 router.use(authMiddleware, roleMiddleware('ADMIN'));
