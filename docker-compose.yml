@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    container_name: storerate-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: storeratedb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+    container_name: storerate-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=mysql://root:root@db:3306/storeratedb
+      - JWT_SECRET=supersecret123
+      - JWT_EXPIRES_IN=7d
+    depends_on:
+      - db
+    # We use a command to ensure the DB is ready before migrating and starting
+    command: >
+      sh -c "npx prisma migrate dev --name init && npm run seed && npm start"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: storerate-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
