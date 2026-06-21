@@ -13,7 +13,7 @@ A full-stack web application for rating stores, built with **React + Vite** (fro
 ## Tech Stack
 
 - **Frontend**: React 18, Vite, React Router v6, Axios, react-hot-toast
-- **Backend**: Node.js, Express.js, Prisma ORM, PostgreSQL
+- **Backend**: Node.js, Express.js, Prisma ORM, MySQL
 - **Auth**: JWT (jsonwebtoken), bcryptjs
 
 ## Project Structure
@@ -68,11 +68,26 @@ A full-stack web application for rating stores, built with **React + Vite** (fro
 
 ## Setup
 
-### Prerequisites
-- Node.js 18+
-- PostgreSQL database
+### Using Docker Compose (Recommended)
 
-### Backend
+You can run the entire application (Database, Backend, and Frontend) using Docker:
+
+```bash
+docker-compose up --build -d
+```
+
+This will automatically start:
+- **MySQL database** on port 3306
+- **Backend server** on port 5000
+- **Frontend** on port 5173 (http://localhost:5173)
+
+### Manual Setup
+
+#### Prerequisites
+- Node.js 18+
+- MySQL database
+
+#### Backend
 ```bash
 cd backend
 npm install
@@ -81,7 +96,7 @@ npx prisma migrate dev --name init
 npm run dev
 ```
 
-### Frontend
+#### Frontend
 ```bash
 cd frontend
 npm install
